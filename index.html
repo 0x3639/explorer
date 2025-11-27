@@ -33,6 +33,45 @@
     }(window.location))
   </script>
   <!-- End Single Page Apps for GitHub Pages -->
+  <!-- Node Selection from URL Parameter -->
+  <script type="text/javascript">
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var nodeParam = params.get('node');
+
+      if (nodeParam) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/nodes.json', false);
+        xhr.send();
+        if (xhr.status === 200) {
+          var config = JSON.parse(xhr.responseText);
+          var nodeUrl;
+
+          if (nodeParam === '0') {
+            // Random selection with failover support
+            var nodeList = config.nodes.slice();
+            // Shuffle array randomly
+            for (var i = nodeList.length - 1; i > 0; i--) {
+              var j = Math.floor(Math.random() * (i + 1));
+              var temp = nodeList[i];
+              nodeList[i] = nodeList[j];
+              nodeList[j] = temp;
+            }
+            // Store shuffled order for potential failover
+            localStorage.setItem('nodeFailoverList', JSON.stringify(nodeList));
+            localStorage.setItem('nodeFailoverIndex', '0');
+            nodeUrl = nodeList[0];
+          } else {
+            nodeUrl = config[nodeParam];
+          }
+
+          if (nodeUrl) {
+            localStorage.setItem('defaultEndpoint', nodeUrl);
+          }
+        }
+      }
+    })();
+  </script>
 </head>
 <body class="mat-app-background">
   <app-root></app-root>
