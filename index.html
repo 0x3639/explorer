@@ -70,6 +70,11 @@
           }
         }
       }
+
+      // Testnet: default to the testnet RPC when no endpoint has been chosen yet
+      if (!localStorage.getItem('defaultEndpoint')) {
+        localStorage.setItem('defaultEndpoint', 'https://rpc.testnet.zenon.info');
+      }
     })();
   </script>
 </head>

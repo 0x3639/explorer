@@ -1,10 +1,6 @@
 {
-  "1": "https://node.zenonhub.io:35997",
-  "2": "https://my.hc1node.com:35997",
-  "3": "https://node.atsocy.com:35997",
+  "1": "https://rpc.testnet.zenon.info",
   "nodes": [
-    "https://node.zenonhub.io:35997",
-    "https://my.hc1node.com:35997",
-    "https://node.atsocy.com:35997"
+    "https://rpc.testnet.zenon.info"
   ]
 }
